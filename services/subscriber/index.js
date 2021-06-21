@@ -9,19 +9,17 @@ const redisClient = redis.createClient({
 redisClient.on("message", async (channel, message) => {
     console.log(`Channel ${channel} just received message: "${message}"`);
     try {
-        const newsPayload = await axios.get('http://newsfeed:3004/get_news');
-        
+        const newsResp = await axios.get('http://newsfeed:3004/get_news');
         const resp = await axios.post('http://mailman:3003/send_mail', {
             "subject": "Sir, here is your news update",
             "to": process.env.RECIPIENT_EMAIL,
-            "html": newsPayload,
+            "html": newsResp.data.payload,
         }, {
             headers: {
             'content-type': 'application/json'
             }
         });
-
-        console.log(resp);
+        console.log(resp.data);
     } catch(err) {
         console.log("Error: ", err);
     }
