@@ -1,4 +1,5 @@
 const redis = require("redis");
+const { printLog } = require('./utils');
 
 const redisClient = redis.createClient({
     host: "redis",
@@ -7,6 +8,6 @@ const redisClient = redis.createClient({
 
 setInterval(() => {
     redisClient.publish('newsfeed_update', `Dispatching message at ${new Date().toISOString()}`, () => {
-        console.log("Message sent");
+        printLog('newsfeed_update message sent');
     });
 }, 10000);

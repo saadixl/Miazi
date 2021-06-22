@@ -1,9 +1,11 @@
 const Parser = require('rss-parser');
 const parser = new Parser();
 const { printLog } = require('../utils');
+const { getCache, setCache } = require('./caching');
 const {
     NEWS_QUERIES,
-    NEWS_LIMIT_PER_QUERY
+    NEWS_LIMIT_PER_QUERY,
+    GUID_EXPIRY_MS
 } = require('../constants');
 
 const getRssUrl = (query) => {
@@ -17,7 +19,7 @@ const getFeedForQuery = async (query, n) => {
         const feed = await parser.parseURL(url);
         result = feed.items || [];
     } catch(e) {
-        console.log(`Failed to fetch news for ${query} for ${JSON.stringify(e)}`);
+        printLog(`Failed to fetch news for ${query} for ${JSON.stringify(e)}`);
     }
     return result.slice(0, n);
 };
@@ -37,9 +39,8 @@ const fetchNews = async () => {
 
 const processNews = async (latestNews) => {
     // Getting the cached guids
-    // TODO
-    // const cachedGuids = await getCache('guids');
-    const cachedGuids = null;
+    const cachedGuids = await getCache('guids');
+    // const cachedGuids = null;
     const guids = cachedGuids ? JSON.parse(cachedGuids) : [];
     let atleastOneNewItem = false;
     let templateStr = "";
@@ -63,19 +64,18 @@ const processNews = async (latestNews) => {
             templateStr += `<h1>${query.toUpperCase()}</h1>${lines}<br/>`;
         }
     });
-    // TODO
     // Cache the guids
-    // await setCache('guids', JSON.stringify(guids), GUID_EXPIRY_MS);
+    await setCache('guids', JSON.stringify(guids), GUID_EXPIRY_MS);
 
     // Send the email if there was at least one new news
     if(atleastOneNewItem) {
-        printLog('News email template ready');
+        printLog('News email template ready, please send the email');
         return templateStr;
     } 
     // Or just skip
     else {
-        printLog('No latest news found. Not gonna send email');
-        return 'Not found';
+        printLog('No latest news found. Please do not send send email');
+        return;
     }
 
 };
