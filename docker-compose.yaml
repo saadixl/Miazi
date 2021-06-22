@@ -19,9 +19,8 @@ services:
         ports:
             - 3003:3003
         environment:
-            - MAILGUN_USERNAME_SANDBOX=${MAILGUN_API_KEY}
-            - MAILGUN_USERNAME_SANDBOX=${MAILGUN_USERNAME_SANDBOX}
-            - MAILGUN_PASSWORD_SANDBOX=${MAILGUN_PASSWORD_SANDBOX}
+            - MAILGUN_USERNAME=${MAILGUN_USERNAME}
+            - MAILGUN_PASSWORD=${MAILGUN_PASSWORD}
             - MAIL_DOMAIN=${MAIL_DOMAIN}
             - SENDER_EMAIL=${SENDER_EMAIL}
     newsfeed:
