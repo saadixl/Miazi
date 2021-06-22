@@ -7,7 +7,7 @@ const redisClient = redis.createClient({
 });
 
 setInterval(() => {
-    redisClient.publish('newsfeed_update', `Dispatching message at ${new Date().toISOString()}`, () => {
-        printLog('newsfeed_update message sent');
+    redisClient.publish('send_newsfeed_update', 'Hey subscirber! Send the latest news to sir.', () => {
+        printLog('send_newsfeed_update message sent');
     });
 }, 10000);
