@@ -1,5 +1,5 @@
 # Miazi
-My work in-progress cloud assistant
+My work in-progress cloud assistant to play with microservices
 
 
 ## If you're interested to run this project you can follow the steps below:
