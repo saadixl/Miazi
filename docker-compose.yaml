@@ -4,20 +4,14 @@ services:
         depends_on:
             - "redis"
         build: services/subscriber
-        ports:
-            - 3001:3001
         environment:
             - RECIPIENT_EMAIL=${RECIPIENT_EMAIL}
     publisher:
         depends_on:
             - "redis"
         build: services/publisher
-        ports:
-            - 3002:3002
     mailman:
         build: services/mailman
-        ports:
-            - 3003:3003
         environment:
             - MAILGUN_USERNAME=${MAILGUN_USERNAME}
             - MAILGUN_PASSWORD=${MAILGUN_PASSWORD}
@@ -25,9 +19,5 @@ services:
             - SENDER_EMAIL=${SENDER_EMAIL}
     newsfeed:
         build: services/newsfeed
-        ports:
-            - 3004:3004
     redis:
         image: "redis:alpine"
-        ports:
-            - 6379:6379
