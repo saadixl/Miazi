@@ -15,7 +15,6 @@ services:
         environment:
             - MAILGUN_USERNAME=${MAILGUN_USERNAME}
             - MAILGUN_PASSWORD=${MAILGUN_PASSWORD}
-            - MAIL_DOMAIN=${MAIL_DOMAIN}
             - SENDER_EMAIL=${SENDER_EMAIL}
     newsfeed:
         build: services/newsfeed
