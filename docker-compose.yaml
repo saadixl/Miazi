@@ -1,22 +1,41 @@
 version: "3.3"
 services:
-    subscriber:
+    # subscriber:
+    #     depends_on:
+    #         - "redis"
+    #     build: services/subscriber
+    #     environment:
+    #         - RECIPIENT_EMAIL=${RECIPIENT_EMAIL}
+    # publisher:
+    #     depends_on:
+    #         - "redis"
+    #     build: services/publisher
+    # mailman:
+    #     build: services/mailman
+    #     environment:
+    #         - MAILGUN_USERNAME=${MAILGUN_USERNAME}
+    #         - MAILGUN_PASSWORD=${MAILGUN_PASSWORD}
+    #         - SENDER_EMAIL=${SENDER_EMAIL}
+    # newsfeed:
+    #     build: services/newsfeed
+    hydration-tracker:
+        build: services/hydration-tracker
         depends_on:
-            - "redis"
-        build: services/subscriber
+            - "mongodb"
         environment:
-            - RECIPIENT_EMAIL=${RECIPIENT_EMAIL}
-    publisher:
-        depends_on:
-            - "redis"
-        build: services/publisher
-    mailman:
-        build: services/mailman
+            MONGO_URI: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb
+            MONGO_DB_NAME: ${MONGO_DB_NAME}
+    # redis:
+    #     image: "redis:alpine"
+    mongodb:
+        image: "mongo:latest"
+        container_name: mongodb
+        restart: always
         environment:
-            - MAILGUN_USERNAME=${MAILGUN_USERNAME}
-            - MAILGUN_PASSWORD=${MAILGUN_PASSWORD}
-            - SENDER_EMAIL=${SENDER_EMAIL}
-    newsfeed:
-        build: services/newsfeed
-    redis:
-        image: "redis:alpine"
+            - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+            - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+            - MONGO_INITDB_DATABASE=${MONGO_DB_NAME}
+        ports:
+            - 27017:27017
+        volumes:
+            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
