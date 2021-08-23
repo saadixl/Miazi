@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { updateWaterIntake } = require('./service');
+const { updateWaterIntake, getAllWaterIntake } = require('./service');
 
 const main = async () => {
   try {
@@ -9,9 +9,10 @@ const main = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    
+
     console.log("Database connected");
     await updateWaterIntake(300);
+    await getAllWaterIntake();
 
   } catch (err) {
     console.log('Failed to connect mongo for: ', err);

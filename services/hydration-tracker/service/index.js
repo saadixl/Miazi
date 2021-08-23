@@ -24,6 +24,16 @@ const updateWaterIntake = (amount) => {
     });
 };
 
+const getAllWaterIntake = async () => {
+    const docs = await waterIntakeModel.find({});
+    console.log('Printing all the water intakes');
+    docs.map((doc) => {
+        console.log(doc);
+    });
+    return;
+};
+
 module.exports = {
     updateWaterIntake,
+    getAllWaterIntake,
 };
