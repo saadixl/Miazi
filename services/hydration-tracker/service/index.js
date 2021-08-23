@@ -8,7 +8,7 @@ const schema = {
 const waterIntakeSchema = new mongoose.Schema(schema);
 const waterIntakeModel = mongoose.model('WaterIntake', waterIntakeSchema);
 
-const updateWaterIntake = (amount) => {
+const updateWaterIntake = ({amount}) => {
     const waterIntakeEntry = new waterIntakeModel({
         amount
     });
@@ -25,12 +25,7 @@ const updateWaterIntake = (amount) => {
 };
 
 const getAllWaterIntake = async () => {
-    const docs = await waterIntakeModel.find({});
-    console.log('Printing all the water intakes');
-    docs.map((doc) => {
-        console.log(doc);
-    });
-    return;
+    return waterIntakeModel.find({});
 };
 
 module.exports = {

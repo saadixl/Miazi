@@ -18,6 +18,10 @@ services:
     #         - SENDER_EMAIL=${SENDER_EMAIL}
     # newsfeed:
     #     build: services/newsfeed
+    test:
+        build: services/test
+        depends_on:
+            - "hydration-tracker"
     hydration-tracker:
         build: services/hydration-tracker
         depends_on:

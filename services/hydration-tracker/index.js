@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { updateWaterIntake, getAllWaterIntake } = require('./service');
+const express = require("express");
 
-const main = async () => {
+const connectMongoDB = async () => {
   try {
     // Connection to the database
     await mongoose.connect(process.env.MONGO_URI, {
@@ -9,14 +10,20 @@ const main = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-
     console.log("Database connected");
-    await updateWaterIntake(300);
-    await getAllWaterIntake();
-
   } catch (err) {
     console.log('Failed to connect mongo for: ', err);
   }
 };
 
-main();
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+connectMongoDB();
+
+require('./api/routes')(app);
+
+app.listen(3006, () => {
+    console.log("Hydration tracker service started");
+});
