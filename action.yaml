@@ -70,5 +70,5 @@ inputs:
     default: false
 runs:
   using: node12
-  main: dist/index.js
-  post: dist/index.js
+  main: action.js
+  post: action.js
