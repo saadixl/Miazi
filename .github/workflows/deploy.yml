@@ -3,16 +3,19 @@ name: Deploy
 on: [push]
 
 jobs:
-  deploy:
-    if: github.ref == 'refs/heads/main'
-      runs-on: [ubuntu-latest]
-      steps:
-      - uses: actions/checkout@v1
-      - name: Push to server
-        uses: saadixl/Miazi@main
-        with:
-          HOST: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PORT: ${{ secrets.PORT }}
-          KEY: ${{ secrets.SSHKEY }}
-          script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker-compose up --build -d
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Run the actions/checkout
+      uses: actions/checkout@main
+
+    - name: Push to server
+      uses: saadixl/Miazi@main
+      with:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker-compose up --build -d
