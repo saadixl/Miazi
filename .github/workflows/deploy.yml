@@ -9,7 +9,7 @@ jobs:
     steps:
 
     - name: Run the actions/checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
 
     - name: Push to server
       uses: saadixl/Miazi@main
