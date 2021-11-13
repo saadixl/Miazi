@@ -16,7 +16,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
         key: ${{ secrets.SSHKEY }}
-        script: |
-          cd ${{ secrets.PROJECT_PATH }}
-          git pull
-          docker-compose up --build -d
+        script: whoami
+          # cd ${{ secrets.PROJECT_PATH }}
+          # git pull
+          # docker-compose up --build -d
