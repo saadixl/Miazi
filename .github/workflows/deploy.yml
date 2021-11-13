@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Push to server
-      uses: saadixl/Miazi@main
+      uses: saadixl/Miazi
       with:
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
