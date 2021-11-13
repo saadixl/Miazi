@@ -14,8 +14,8 @@ jobs:
     - name: Push to server
       uses: saadixl/Miazi@main
       with:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PORT: ${{ secrets.PORT }}
-        KEY: ${{ secrets.SSHKEY }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.SSHKEY }}
         script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker-compose up --build -d
