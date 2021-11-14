@@ -1,1 +1,1 @@
-console.log("action.js fired");
+console.log("Action.js fired");
