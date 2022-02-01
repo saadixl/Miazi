@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-// import counterReducer from './Counter/counter.reducer';
+import newsfeedReducer from './Newsfeed/newsfeed.reducer';
 
 const reducers = combineReducers({
-    // counter: counterReducer,
+    newsfeed: newsfeedReducer,
 });
 
 export default reducers;
