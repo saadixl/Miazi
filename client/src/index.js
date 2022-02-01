@@ -4,11 +4,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// REDUX
+
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 ReactDOM.render(
   <React.Fragment>
     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
     <CssBaseline />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.Fragment>,
   document.getElementById('root'),
 );

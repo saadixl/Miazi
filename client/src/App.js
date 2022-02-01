@@ -18,19 +18,11 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -277,58 +269,11 @@ export default function App() {
       <ThemeProvider theme={darkTheme}>
       <Box sx={{ flexGrow: 1, marginTop: '10px', padding: '10px 25px'  }}>
         <Grid container spacing={2}>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={6}>
+          <Grid item md={3}></Grid>
+          <Grid item xs={12} md={6}>
             <Item>
               <GridItemTitle>Newsfeed</GridItemTitle>
               <AlignItemsList/>
-            </Item>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <GridItemTitle>Newsfeed settings</GridItemTitle>
-              <Box sx={{ padding: '5px 15px', textAlign: 'left' }}>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Refresh frquency</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      
-                      label="Refresh frquency"
-                    >
-                      <MenuItem value={10}>1 hour</MenuItem>
-                      <MenuItem value={20}>2 hours</MenuItem>
-                      <MenuItem value={30}>4 hours</MenuItem>
-                      <MenuItem value={30}>6 hours</MenuItem>
-                      <MenuItem value={30}>8 hours</MenuItem>
-                      <MenuItem value={30}>12 hours</MenuItem>
-                      <MenuItem value={30}>1 day</MenuItem>
-                    </Select>
-                </FormControl>
-              </Box>
-              <Box sx={{ padding: '5px 15px', textAlign: 'left' }}>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Email frquency</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      
-                      label="Email frquency"
-                    >
-                      <MenuItem value={10}>1 hour</MenuItem>
-                      <MenuItem value={20}>2 hours</MenuItem>
-                      <MenuItem value={30}>4 hours</MenuItem>
-                      <MenuItem value={30}>6 hours</MenuItem>
-                      <MenuItem value={30}>8 hours</MenuItem>
-                      <MenuItem value={30}>12 hours</MenuItem>
-                      <MenuItem value={30}>1 day</MenuItem>
-                    </Select>
-                </FormControl>
-              </Box>
-              <GridItemTitle>Warden</GridItemTitle>
-              <Box sx={{ padding: '5px 15px', textAlign: 'left' }}>
-                <AlertDialog/>
-              </Box>
             </Item>
           </Grid>
         </Grid>
