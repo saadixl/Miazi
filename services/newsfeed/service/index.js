@@ -89,6 +89,14 @@ const getNews = async () => {
     };
 };
 
+const listNews = async () => {
+    const newsRaw = await fetchNews();
+    return {
+        payload: newsRaw
+    };
+};
+
 module.exports = {
     getNews,
+    listNews,
 };

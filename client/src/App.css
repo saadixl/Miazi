@@ -1,0 +1,12 @@
+html, body {
+    background-color: #121212 !important;
+    color: #fff;
+}
+
+a {
+    color: #5dfdad;
+}
+
+a:visited {
+    color: #d94c12;
+}
