@@ -1,18 +1,18 @@
 import { LIST_NEWS } from './newsfeed.types';
 
 const INITIAL_STATE = {
-    newsfeed: {},
+    newsList: {},
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LIST_NEWS:
-            const newsfeed = {
+            const newsList = {
                 timestamp: Date.now()
             };
             return {
                 ...state,
-                newsfeed,
+                newsList,
             };
          default: return state;
 
