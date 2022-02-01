@@ -23,8 +23,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { connect } from "react-redux";
-import { listNews } from './redux/Newsfeed/newsfeed.actions';
  
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -285,17 +283,4 @@ export function App() {
   );
 }
 
-const mapStateToProps = state => {
-  console.log("state", state);
-  return {
-    newsList: state.newsfeed
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    listNews: () => dispatch(listNews()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
