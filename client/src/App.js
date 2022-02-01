@@ -18,11 +18,6 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 import { connect } from 'react-redux';
 import { listNews } from './store/actions/newsActions';
@@ -42,6 +37,9 @@ const darkTheme = createTheme({
     },
     secondary: {
       main: '#121212'
+    },
+    link: {
+      main: '#5b3216'
     }
   },
 });
@@ -86,7 +84,6 @@ function NewsItem(props) {
           sx={{ display: 'inline' }}
           component="span"
           variant="body2"
-          color="text.primary"
         >
           <a href={url} target="_blank">Read more</a>
         </Typography>
@@ -96,15 +93,35 @@ function NewsItem(props) {
 </ListItem>);
 }
 
-function AlignItemsList(props) {
+function NewsGrid(props) {
   return (
-    <List sx={{ width: '100%', minHeight: '80vh'}}>
+    <List sx={{ width: '100%'}}>
       {props.children}
     </List>
   );
 }
 
-function GridItemTitle(props) {
+function NewsGridItem(props) {
+  const { news, topic } = props;
+  const renderedNews = news.map((item) => {
+    const { guid, link, pubDate, title } = item;
+    return <span key={guid}>
+      <NewsItem topic={topic} title={title} url={link} pubDate={pubDate} />
+      <Divider variant="inset" component="li" />
+    </span>;
+  });
+
+  return (<Grid item xs={12} md={3}>
+    <Item>
+      <NewsGridItemTitle>{topic.toUpperCase()}</NewsGridItemTitle>
+      <NewsGrid>
+        {renderedNews}
+      </NewsGrid>
+    </Item>
+  </Grid>);
+}
+
+function NewsGridItemTitle(props) {
   return (<Typography 
     variant="h7"
     align="left"
@@ -118,16 +135,7 @@ function GridItemTitle(props) {
   </Typography>);
 };
 
-function NewsTopic(props) {
-  const { news } = props;
-  return news.map((item) => {
-    const { guid, link, pubDate, title } = item;
-    return <span key={guid}>
-      <NewsItem topic="world" title={title} url={link} pubDate={pubDate} />
-      <Divider variant="inset" component="li" />
-    </span>;
-  });
-}
+
 
 export function App(props) {
   useEffect(() => {
@@ -135,11 +143,13 @@ export function App(props) {
   }, []);
 
   const { news } = props;
-  let renderNewsTopic = null;
+  let newsGrids = null;
   if(!news.loading && news.payload) {
     const { payload } = news;
-    console.log("payload", payload.world);
-    renderNewsTopic = <NewsTopic news={payload.world}/>;
+    const topics = Object.keys(payload);
+    newsGrids = topics.map((topic) => {
+      return <NewsGridItem topic={topic} news={payload[topic]}/>
+    });
   }
 
   return (
@@ -148,15 +158,7 @@ export function App(props) {
       <ThemeProvider theme={darkTheme}>
       <Box sx={{ flexGrow: 1, marginTop: '10px', padding: '10px 25px'  }}>
         <Grid container spacing={2}>
-          <Grid item md={3}></Grid>
-          <Grid item xs={12} md={6}>
-            <Item>
-              <GridItemTitle>Newsfeed</GridItemTitle>
-              <AlignItemsList>
-                {renderNewsTopic}
-              </AlignItemsList>
-            </Item>
-          </Grid>
+          {newsGrids}
         </Grid>
         </Box>
         </ThemeProvider>
