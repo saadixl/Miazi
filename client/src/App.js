@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -23,7 +23,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
- 
+
+import { connect } from 'react-redux';
+import { listNews } from './store/actions/newsActions';
+
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -262,7 +265,14 @@ export function AlertDialog() {
   );
 }
 
-export function App() {
+export function App(props) {
+  useEffect(() => {
+    console.log("yo");
+    props.listNews();
+  }, []);
+  const { news } = props;
+  console.log("news", news);
+
   return (
     <Container maxWidth="xl" disableGutters={true}>
       <ButtonAppBar/>
@@ -283,4 +293,6 @@ export function App() {
   );
 }
 
-export default App;
+const mapStateToProps  = (state) => ({ news: state.news });
+
+export default connect(mapStateToProps, {listNews})(App);
