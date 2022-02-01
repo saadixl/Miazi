@@ -72,140 +72,34 @@ export function ButtonAppBar() {
   );
 }
 
-export function AlignItemsList() {
+function NewsItem(props) {
+  const { topic, title, url, pubDate } = props;
+  return (<ListItem alignItems="flex-start">
+  <ListItemAvatar>
+    <Avatar alt={topic.toUpperCase()} src="/static/images/avatar/1.jpg" />
+  </ListItemAvatar>
+  <ListItemText
+    primary={title}
+    secondary={
+      <React.Fragment>
+        <Typography
+          sx={{ display: 'inline' }}
+          component="span"
+          variant="body2"
+          color="text.primary"
+        >
+          <a href={url} target="_blank">Read more</a>
+        </Typography>
+      </React.Fragment>
+    }
+  />
+</ListItem>);
+}
+
+function AlignItemsList(props) {
   return (
     <List sx={{ width: '100%', minHeight: '80vh'}}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Ali Connors
-              </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Sandra Adams
-              </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+      {props.children}
     </List>
   );
 }
@@ -224,54 +118,29 @@ function GridItemTitle(props) {
   </Typography>);
 };
 
-export function AlertDialog() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Enable Warden mode
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Do you want to enable Warden mode?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Once Warden mode is enabled, upon not checking in, you emergency contact will receive an email from you.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} autoFocus>
-            Enable
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+function NewsTopic(props) {
+  const { news } = props;
+  return news.map((item) => {
+    const { guid, link, pubDate, title } = item;
+    return <span key={guid}>
+      <NewsItem topic="world" title={title} url={link} pubDate={pubDate} />
+      <Divider variant="inset" component="li" />
+    </span>;
+  });
 }
 
 export function App(props) {
   useEffect(() => {
-    console.log("yo");
     props.listNews();
   }, []);
+
   const { news } = props;
-  console.log("news", news);
+  let renderNewsTopic = null;
+  if(!news.loading && news.payload) {
+    const { payload } = news;
+    console.log("payload", payload.world);
+    renderNewsTopic = <NewsTopic news={payload.world}/>;
+  }
 
   return (
     <Container maxWidth="xl" disableGutters={true}>
@@ -283,7 +152,9 @@ export function App(props) {
           <Grid item xs={12} md={6}>
             <Item>
               <GridItemTitle>Newsfeed</GridItemTitle>
-              <AlignItemsList/>
+              <AlignItemsList>
+                {renderNewsTopic}
+              </AlignItemsList>
             </Item>
           </Grid>
         </Grid>
