@@ -1,10 +1,11 @@
 import { LIST_NEWS, NEWS_ERROR } from '../types';
 import axios from 'axios';
+import { NEWSFEED_API_URL } from '../../Constants';
 
 export const listNews = () => async dispatch => {
     console.log("listNews action called");
     try{
-        const res = await axios.get(`http://jsonplaceholder.typicode.com/users`)
+        const res = await axios.get(NEWSFEED_API_URL);
         dispatch( {
             type: LIST_NEWS,
             payload: res.data
