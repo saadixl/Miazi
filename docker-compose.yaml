@@ -28,8 +28,8 @@ services:
         ports:
             - "80:80"
     
-    webapp:
-        build: services/webapp
+    console:
+        build: services/console
         depends_on:
             - "newsfeed"
             - "router"
