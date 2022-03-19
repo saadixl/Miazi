@@ -1,5 +1,4 @@
 const express = require('express');
-var request = require('request');
 const app = express();
 const port = 80;
 
@@ -8,7 +7,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/console', (req, res) => {
-    res.redirect('http://console:3000');
+    res.redirect('http://mh7.pw:3000'); 
 });
 
 app.listen(port, () => {
