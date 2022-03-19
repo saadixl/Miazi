@@ -27,3 +27,11 @@ services:
         build: services/router
         ports:
             - "80:80"
+    
+    webapp:
+        build: services/webapp
+        depends_on:
+            - newsfeed
+            - router
+        ports:
+            - "3000:3000"
