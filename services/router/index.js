@@ -7,8 +7,8 @@ app.get('/', (req, res) => {
     res.send(`Hello World!<br/>The server date-time is now ${new Date().toString()}.<br/>This domain is used for Software Engineering experiments only. This message is sent from the router service.`);
 });
 
-app.get('/webapp', (req, res) => {
-    request.get('http://webapp:3000', function(err, response, body) {
+app.get('/console', (req, res) => {
+    request.get('http://console:3000', function(err, response, body) {
         if (!err) {
             req.send(body);
         }
