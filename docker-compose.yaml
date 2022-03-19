@@ -24,6 +24,6 @@ services:
         image: "redis:alpine"
 
     router:
-        build: services/api
+        build: services/router
         ports:
             - "80:80"
