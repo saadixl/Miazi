@@ -16,7 +16,6 @@ jobs:
         port: ${{ secrets.PORT }}
         key: ${{ secrets.SSHKEY }}
         script: |
-          export NODE_OPTIONS=--openssl-legacy-provider
           cd ${{ secrets.PROJECT_PATH }}
           git pull
           docker-compose up --build -d
