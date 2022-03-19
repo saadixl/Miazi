@@ -8,11 +8,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/console', (req, res) => {
-    request.get('http://console:3000', function(err, response, body) {
-        if (!err) {
-            req.send(body);
-        }
-    });
+    res.redirect('http://console:3000');
 });
 
 app.listen(port, () => {
