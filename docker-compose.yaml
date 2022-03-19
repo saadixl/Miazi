@@ -31,7 +31,7 @@ services:
     webapp:
         build: services/webapp
         depends_on:
-            - newsfeed
-            - router
+            - "newsfeed"
+            - "router"
         ports:
             - "3000:3000"
