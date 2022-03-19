@@ -30,8 +30,5 @@ services:
     
     console:
         build: services/console
-        depends_on:
-            - "newsfeed"
-            - "router"
         ports:
             - "3000:3000"
