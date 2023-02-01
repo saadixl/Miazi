@@ -22,11 +22,6 @@ services:
             - "3004:3004"
     redis:
         image: "redis:alpine"
-
-    router:
-        build: services/router
-        ports:
-            - "80:80"
     
     console:
         build: services/console
