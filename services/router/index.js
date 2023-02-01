@@ -10,6 +10,10 @@ app.get('/console', (req, res) => {
     res.redirect('http://mh7.pw:3000'); 
 });
 
+app.get('/raven', (req, res) => {
+    res.redirect('http://mh7.pw:5005'); 
+});
+
 app.listen(port, () => {
     console.log(`api service listening at http://localhost:${port}`)
 });
